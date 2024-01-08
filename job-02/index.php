@@ -1,7 +1,12 @@
 <?php
 require_once 'Product.php';
+require_once 'Category.php';
 
-$product = new Product(1, 'T-shirt noir', ['https://picsum.photos/200/300'], 15, 'T-shirt coton de couleur noire', 10, new DateTime('2020-06-14'), new DateTime('2020-06-14'));
+$category1 = new Category(1, 'T-shirt', 'T-shirt coton', new DateTime('2020-06-14'), new DateTime('2020-06-14'));
+$category2 = new Category(2, 'Pantalon', 'Pantalon en jean', new DateTime('2020-06-14'), new DateTime('2020-06-14'));
+
+
+$product = new Product(1, 'T-shirt noir', ['https://picsum.photos/200/300'], 15, 'T-shirt coton de couleur noire', 10, new DateTime('2020-06-14'), new DateTime('2020-06-14'), 1);
 
 
 
@@ -13,11 +18,33 @@ $product = new Product(1, 'T-shirt noir', ['https://picsum.photos/200/300'], 15,
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job01</title>
+    <title>Job02</title>
+    <style>
+        th,
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+
+        img {
+            width: 100px;
+        }
+
+        th {
+            background-color: lightgrey;
+        }
+
+
+
+        h1 {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Job01</h1>
+    <h1>Job02</h1>
 
     <table>
         <thead>
@@ -30,6 +57,7 @@ $product = new Product(1, 'T-shirt noir', ['https://picsum.photos/200/300'], 15,
                 <th>quantity</th>
                 <th>createdAt</th>
                 <th>updatedAt</th>
+                <th>category_id</th>
             </tr>
         </thead>
         <tbody>
@@ -46,6 +74,7 @@ $product = new Product(1, 'T-shirt noir', ['https://picsum.photos/200/300'], 15,
                 <td><?= $product->getQuantity() ?></td>
                 <td><?= $product->getCreatedAt()->format('d-m-Y') ?></td>
                 <td><?= $product->getUpdatedAt()->format('d-m-Y') ?></td>
+                <td><?= $product->getCategory_id() ?></td>
             </tr>
         </tbody>
     </table>
