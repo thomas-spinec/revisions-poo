@@ -13,11 +13,11 @@ $product = new Product(1, 'T-shirt noir', ['https://picsum.photos/200/300'], 15,
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job01</title>
+    <title>Job02</title>
 </head>
 
 <body>
-    <h1>Job01</h1>
+    <h1>Job02</h1>
 
     <table>
         <thead>
