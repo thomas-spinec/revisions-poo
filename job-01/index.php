@@ -44,8 +44,8 @@ $product = new Product(1, 'T-shirt noir', ['https://picsum.photos/200/300', 'htt
                 <td><?= $product->getPrice() ?></td>
                 <td><?= $product->getDescription() ?></td>
                 <td><?= $product->getQuantity() ?></td>
-                <td><?= $product->getCreatedAt()->format('Y-m-d') ?></td>
-                <td><?= $product->getUpdatedAt()->format('Y-m-d') ?></td>
+                <td><?= $product->getCreatedAt()->format('d-m-Y') ?></td>
+                <td><?= $product->getUpdatedAt()->format('d-m-Y') ?></td>
             </tr>
         </tbody>
     </table>
