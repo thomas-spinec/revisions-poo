@@ -33,7 +33,7 @@ var_dump($result);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job06</title>
+    <title>Job07</title>
     <style>
         th,
         td {
@@ -59,41 +59,7 @@ var_dump($result);
 </head>
 
 <body>
-    <h1>Job06</h1>
-
-    <!-- <table>
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>name</th>
-                <th>photos</th>
-                <th>price</th>
-                <th>description</th>
-                <th>quantity</th>
-                <th>createdAt</th>
-                <th>updatedAt</th>
-                <th>category_id</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><?= $product->getId() ?></td>
-                <td><?= $product->getName() ?></td>
-                <td>
-                    <?php foreach ($product->getPhotos() as $photo) : ?>
-                        <img src="<?= $photo ?>" alt="">
-                    <?php endforeach ?>
-                </td>
-                <td><?= $product->getPrice() ?></td>
-                <td><?= $product->getDescription() ?></td>
-                <td><?= $product->getQuantity() ?></td>
-                <td><?= $product->getCreatedAt()->format('d-m-Y') ?></td>
-                <td><?= $product->getUpdatedAt()->format('d-m-Y') ?></td>
-                <td><?= $product->getId_category() ?></td>
-            </tr>
-        </tbody>
-    </table> -->
-
+    <h1>Job07</h1>
 </body>
 
 </html>
