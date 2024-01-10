@@ -51,7 +51,7 @@ var_dump($product);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job03</title>
+    <title>Job04</title>
     <style>
         th,
         td {
@@ -77,7 +77,7 @@ var_dump($product);
 </head>
 
 <body>
-    <h1>Job02</h1>
+    <h1>Job04</h1>
 
     <table>
         <thead>
