@@ -9,7 +9,18 @@ class Product
 
     public function __construct(protected ?int $id = null, protected ?string $name = null, protected ?array $photos = null, protected ?int $price = null, protected ?string $description = null, protected ?int $quantity = null, protected ?DateTime $createdAt = null, protected ?DateTime $updatedAt = null, protected ?int $id_category = null)
     {
-        // construct here
+            // construct here
+            // connect to database pdo
+    $dbname = 'draft-shop';
+    $host = 'localhost';
+    $dbuser = 'root';
+    $password = '';
+
+    try {
+        $this->pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $dbuser, $password);
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
     }
 
 
