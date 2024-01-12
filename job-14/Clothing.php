@@ -1,5 +1,6 @@
 <?php
 require_once "Product.php";
+require_once "SockableInterface.php";
 class Clothing extends Product implements SockableInterface
 {
     protected ?PDO $pdo;

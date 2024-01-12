@@ -1,5 +1,6 @@
 <?php
 require_once "Product.php";
+require_once "SockableInterface.php";
 
 class Electronic extends Product implements SockableInterface
 {
