@@ -1,7 +1,7 @@
 <?php
 require_once "Product.php";
 
-class Clothing extends Product
+class Electronic extends Product
 {
     protected ?PDO $pdo;
 
