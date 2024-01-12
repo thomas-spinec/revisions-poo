@@ -333,7 +333,7 @@ class Product
             "id_category" => $this->id_category
         ]);
         // Si la requête a fonctionné, on récupère l'id généré
-        if ($query->rowCount() > 0) {
+        if ($query) {
             return $this;
         } else {
             return false;

@@ -120,4 +120,52 @@ class Electronic extends Product
         }
         return $electronics;
     }
+
+    public function create(): Electronic|bool
+    {
+        $result = parent::create();
+        if (!$result) {
+            return $result;
+        }
+
+        $request = $this->pdo->prepare(
+            "INSERT INTO electronic (brand, waranty_fee, id_product) VALUES (:brand, :waranty_fee, :id_product)"
+        );
+        $result2 = $request->execute(
+            [
+                'brand' => $this->brand,
+                'waranty_fee' => $this->waranty_fee,
+                'id_product' => $this->id,
+            ]
+        );
+        if ($result2) {
+            return $this;
+        } else {
+            return $result2;
+        }
+    }
+
+    public function update(): Electronic|bool
+    {
+        $result = parent::update();
+        if (!$result) {
+            return $result;
+        }
+
+        $query = $this->pdo->prepare(
+            "UPDATE electronic SET brand = :brand, waranty_fee=:waranty_fee WHERE id_product = :id_product"
+        );
+
+        $result2 = $query->execute([
+            'brand' => $this->brand,
+            'waranty_fee' => $this->waranty_fee,
+            'id_product' => $this->id,
+        ]);
+
+        if ($result2) {
+            return $this;
+        } else {
+            return $result2;
+        }
+    }
 }

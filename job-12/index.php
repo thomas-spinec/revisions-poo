@@ -25,12 +25,20 @@ $electronic = new Electronic();
 // $newElectronic = $electronic->findOneById(9);
 
 // findAll -------------------------
-$newClothing = $clothing->findAll();
-$newElectronic = $electronic->findAll();
+// $newClothing = $clothing->findAll();
+// $newElectronic = $electronic->findAll();
+
+// create -------------------------
+// $clothing->create();
+// $electronic->create();
+
+// update -------------------------
+// $clothing->update();
+// $electronic->update();
 
 
-var_dump($newClothing);
-var_dump($newElectronic);
+// var_dump($newClothing);
+// var_dump($newElectronic);
 
 
 

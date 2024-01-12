@@ -17,7 +17,7 @@ class Clothing extends Product
         protected ?string $size = null,
         protected ?string $color = null,
         protected ?string $type = null,
-        protected ?int $materialFee = null
+        protected ?int $material_fee = null
     ) {
         parent::__construct($id, $name, $photos, $price, $description, $quantity, $createdAt, $updatedAt, $id_category);
     }
@@ -65,9 +65,9 @@ class Clothing extends Product
     /**
      * Get the value of materialFee
      */
-    public function getMaterialFee()
+    public function getMaterial_fee()
     {
-        return $this->materialFee;
+        return $this->material_fee;
     }
 
     /**
@@ -75,9 +75,9 @@ class Clothing extends Product
      *
      * @return  self
      */
-    public function setMaterialFee($materialFee)
+    public function setMaterial_fee($material_fee)
     {
-        $this->materialFee = $materialFee;
+        $this->material_fee = $material_fee;
 
         return $this;
     }
@@ -138,5 +138,58 @@ class Clothing extends Product
             );
         }
         return $clothings;
+    }
+
+    public function create(): Clothing|bool
+    {
+        $result = parent::create();
+        if (!$result) {
+            return $result;
+        }
+
+        $request = $this->pdo->prepare(
+            "INSERT INTO clothing (size, color, type, material_fee, id_product) VALUES (:size, :color, :type, :material_fee, :id_product)"
+        );
+        $result2 = $request->execute(
+            [
+                'size' => $this->size,
+                'color' => $this->color,
+                'type' => $this->type,
+                'material_fee' => $this->material_fee,
+                'id_product' => $this->id,
+            ]
+        );
+        if ($result2) {
+            return $this;
+        } else {
+            return $result2;
+        }
+    }
+
+
+    public function update(): Clothing|bool
+    {
+        $result = parent::update();
+        if (!$result) {
+            return $result;
+        }
+
+        $query = $this->pdo->prepare(
+            "UPDATE clothing SET size = :size, color = :color, type= :type, material_fee=:material_fee WHERE id_product = :id_product"
+        );
+
+        $result2 = $query->execute([
+            'size' => $this->size,
+            'color' => $this->color,
+            'type' => $this->type,
+            'material_fee' => $this->material_fee,
+            'id_product' => $this->id,
+        ]);
+
+        if ($result2) {
+            return $this;
+        } else {
+            return $result2;
+        }
     }
 }
