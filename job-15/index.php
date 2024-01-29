@@ -1,24 +1,18 @@
 <?php
-// // connect to database pdo
-// $dbname = 'draft-shop';
-// $host = 'localhost';
-// $dbuser = 'root';
-// $password = '';
 
-// try {
-//     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $dbuser, $password);
-// } catch (PDOException $e) {
-//     echo $e->getMessage();
-// }
+require_once 'vendor/autoload.php';
 
-// require_once 'Product.php';
-require_once 'Clothing.php';
-require_once 'Electronic.php';
-require_once 'Category.php';
+use App\Clothing as Clothing;
+use App\Electronic as Electronic;
+
 
 
 $clothing = new Clothing();
 $electronic = new Electronic();
+
+var_dump($clothing);
+var_dump($electronic);
+
 
 // findOneById -------------------------
 // $newClothing = $clothing->findOneById(1);
@@ -51,11 +45,11 @@ $electronic = new Electronic();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job14</title>
+    <title>Job15</title>
 </head>
 
 <body>
-    <h1>Job14</h1>
+    <h1>Job15</h1>
 </body>
 
 </html>

@@ -1,6 +1,11 @@
 <?php
 
-require_once "Category.php";
+namespace App\Abstract;
+
+use App\Category;
+use PDO;
+use PDOException;
+use DateTime;
 
 abstract class Product
 {
