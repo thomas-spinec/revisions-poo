@@ -257,11 +257,11 @@ class Product
     {
         $query = $this->pdo->prepare("SELECT * FROM product");
         $query->execute();
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
         $products = [];
-        foreach ($result as $product) {
-            $product = new Product($product['id'], $product['name'], json_decode($product['photos']), $product['price'], $product['description'], $product['quantity'], new DateTime($product['createdAt']), new DateTime($product['updatedAt']), $product['id_category']);
-            array_push($products, $product);
+        foreach ($results as $result) {
+            $product = new Product($result['id'], $result['name'], json_decode($result['photos']), $result['price'], $result['description'], $result['quantity'], new DateTime($result['createdAt']), new DateTime($result['updatedAt']), $result['id_category']);
+            $products[] = $product;
         }
         return $products;
     }
