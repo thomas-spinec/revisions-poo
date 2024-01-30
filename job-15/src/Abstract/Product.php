@@ -1,15 +1,40 @@
 <?php
 
-require_once "Category.php";
+namespace App\Abstract;
 
-class Product
+use App\Category;
+use PDO;
+use PDOException;
+use DateTime;
+
+abstract class Product
 {
 
-    private ?PDO $pdo = null;
+    protected ?PDO $pdo = null;
 
-    public function __construct(private ?int $id = null, private ?string $name = null, private ?array $photos = null, private ?int $price = null, private ?string $description = null, private ?int $quantity = null, private ?DateTime $createdAt = null, private ?DateTime $updatedAt = null, private ?int $id_category = null)
-    {
+    public function __construct(
+        protected ?int $id = null,
+        protected ?string $name = null,
+        protected ?array $photos = null,
+        protected ?int $price = null,
+        protected ?string $description = null,
+        protected ?int $quantity = null,
+        protected ?DateTime $createdAt = null,
+        protected ?DateTime $updatedAt = null,
+        protected ?int $id_category = null
+    ) {
         // construct here
+        // connect to database pdo
+        $dbname = 'draft-shop';
+        $host = 'localhost';
+        $dbuser = 'root';
+        $password = '';
+
+        try {
+            $this->pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $dbuser, $password);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
     }
 
 
@@ -230,39 +255,61 @@ class Product
     }
 
 
-    public function findOneById(int $id): Product|bool
+    abstract public function findOneById(int $id): Product|bool;
+
+    abstract public function findAll(): array;
+
+    protected function create(): Product|bool
     {
-        $query = $this->pdo->prepare("SELECT * FROM product WHERE id = :id");
+        // vérification qu'on a bien tous les attributs nécessaires
+        if (!$this->name || !$this->photos || !$this->price || !$this->description || !$this->quantity || !$this->id_category) {
+            return false;
+        }
+        // insertion dans la bdd
+        $query = $this->pdo->prepare("INSERT INTO product (name, photos, price, description, quantity, createdAt, updatedAt, id_category) VALUES (:name, :photos, :price, :description, :quantity, :createdAt, :updatedAt, :id_category)");
         $query->execute([
-            "id" => $id
+            "name" => $this->name,
+            "photos" => json_encode($this->photos),
+            "price" => $this->price,
+            "description" => $this->description,
+            "quantity" => $this->quantity,
+            "createdAt" => $this->createdAt->format('Y-m-d H:i:s'),
+            "updatedAt" => $this->updatedAt->format('Y-m-d H:i:s'),
+            "id_category" => $this->id_category
         ]);
-        $result = $query->fetch(PDO::FETCH_ASSOC);
-        if ($result) {
-            $this->setId($result['id']);
-            $this->setName($result['name']);
-            $this->setPhotos(json_decode($result['photos']));
-            $this->setPrice($result['price']);
-            $this->setDescription($result['description']);
-            $this->setQuantity($result['quantity']);
-            $this->setCreatedAt(new DateTime($result['createdAt']));
-            $this->setUpdatedAt(new DateTime($result['updatedAt']));
-            $this->setId_category($result['id_category']);
+        // Si la requête a fonctionné, on récupère l'id généré
+        if ($query->rowCount() > 0) {
+            $this->id = $this->pdo->lastInsertId();
             return $this;
         } else {
             return false;
         }
     }
 
-    public function findAll(): array
+    protected function update(): Product|bool
     {
-        $query = $this->pdo->prepare("SELECT * FROM product");
-        $query->execute();
-        $results = $query->fetchAll(PDO::FETCH_ASSOC);
-        $products = [];
-        foreach ($results as $result) {
-            $product = new Product($result['id'], $result['name'], json_decode($result['photos']), $result['price'], $result['description'], $result['quantity'], new DateTime($result['createdAt']), new DateTime($result['updatedAt']), $result['id_category']);
-            $products[] = $product;
+        // vérification qu'on a bien tous les attributs nécessaires
+        if (!$this->id || !$this->name || !$this->photos || !$this->price || !$this->description || !$this->quantity || !$this->id_category) {
+            return false;
         }
-        return $products;
+        // insertion dans la bdd
+        $query = $this->pdo->prepare("UPDATE product SET name = :name, photos = :photos, price = :price, description = :description, quantity = :quantity, createdAt = :createdAt, updatedAt = :updatedAt, id_category = :id_category WHERE id = :id");
+        $query->execute([
+            "id" => $this->id,
+            "name" => $this->name,
+            "photos" => json_encode($this->photos),
+            "price" => $this->price,
+            "description" => $this->description,
+            "quantity" => $this->quantity,
+            "createdAt" => $this->createdAt->format('Y-m-d H:i:s'),
+            "updatedAt" => $this->updatedAt->format('Y-m-d H:i:s'),
+            "id_category" => $this->id_category
+        ]);
+        // Si la requête a fonctionné, on récupère l'id généré
+        if ($query) {
+            return $this;
+        } else {
+            return false;
+        }
     }
 }
